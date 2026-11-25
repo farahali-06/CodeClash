@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#8e1717">
+    <meta name="description" content="RoktoLink demo administration dashboard for sample donor registrations and blood requests.">
+    <title>RoktoLink Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin-page">
+    <div class="admin-shell" id="admin-dashboard">
+        <aside class="admin-sidebar">
+            <a class="admin-brand" href="index.html">RoktoLink</a>
+            <p class="admin-sidebar-label">Administration</p>
+            <nav class="admin-navigation" aria-label="Admin navigation">
+                <a href="#overview">Overview</a>
+                <a href="#donor-management">Donor Management</a>
+                <a href="#blood-requests">Blood Requests</a>
+                <a class="back-to-site" href="index.html">Back to Website</a>
+            </nav>
+        </aside>
+
+        <main class="admin-main">
+            <header class="admin-page-header">
+                <div>
+                    <p class="admin-eyebrow">ROKTOLINK / DEMO ADMIN</p>
+                    <h1>RoktoLink Admin Dashboard</h1>
+                    <p class="admin-welcome">Manage donor registrations and blood requests.</p>
+                </div>
+                <a class="admin-back-link" href="index.html">Back to Website</a>
+            </header>
+
+            <p class="admin-demo-notice">Demo Admin Panel – This dashboard uses fictional sample data and browser LocalStorage. It is not a secure production administration system. Use fictional test values only and do not enter sensitive personal information.</p>
+            <p class="admin-message" id="admin-message" role="status" aria-live="polite" hidden></p>
+
+            <section class="admin-section" id="overview" aria-labelledby="overview-title">
+                <div class="admin-section-heading">
+                    <div>
+                        <h2 id="overview-title">Overview</h2>
+                        <p>Current totals from this browser's saved records and sample directory.</p>
+                    </div>
+                </div>
+                <div class="admin-stat-grid">
+                    <article class="admin-stat-card">
+                        <p>Total Donors</p>
+                        <strong id="stat-total-donors">—</strong>
+                        <span>Sample profiles + all registration records</span>
+                    </article>
+                    <article class="admin-stat-card">
+                        <p>Pending Registrations</p>
+                        <strong id="stat-pending-registrations">—</strong>
+                        <span>Awaiting demo review</span>
+                    </article>
+                    <article class="admin-stat-card">
+                        <p>Approved Donors</p>
+                        <strong id="stat-approved-donors">—</strong>
+                        <span>Approved registrations</span>
+                    </article>
+                    <article class="admin-stat-card">
+                        <p>Total Blood Requests</p>
+                        <strong id="stat-total-requests">—</strong>
+                        <span>Saved in this browser</span>
+                    </article>
+                </div>
+            </section>
+
+            <section class="admin-section admin-panel" id="donor-management" aria-labelledby="donor-management-title">
+                <div class="admin-section-heading">
+                    <div>
+                        <h2 id="donor-management-title">Donor Management</h2>
+                        <p>Manage registrations only. Fictional sample directory profiles remain separate.</p>
+                    </div>
+                </div>
+
+                <div class="admin-filters donor-filters">
+                    <div class="admin-filter">
+                        <label for="donor-name-filter">Search donor name</label>
+                        <input id="donor-name-filter" type="search" placeholder="Enter a donor name">
+                    </div>
+                    <div class="admin-filter">
+                        <label for="donor-blood-filter">Blood group</label>
+                        <select id="donor-blood-filter">
+                            <option value="">All Blood Groups</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                    </div>
+                    <div class="admin-filter">
+                        <label for="donor-status-filter">Registration status</label>
+                        <select id="donor-status-filter">
+                            <option value="">All Statuses</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Deactivated">Deactivated</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="admin-table-wrap">
+                    <table class="admin-table donor-admin-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Donor ID</th>
+                                <th scope="col">Display Name</th>
+                                <th scope="col">Blood Group</th>
+                                <th scope="col">City</th>
+                                <th scope="col">Locality</th>
+                                <th scope="col">Stated Availability Preference</th>
+                                <th scope="col">Registration Status</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="donor-table-body"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="admin-section admin-panel" id="blood-requests" aria-labelledby="blood-requests-title">
+                <div class="admin-section-heading">
+                    <div>
+                        <h2 id="blood-requests-title">Blood Requests</h2>
+                        <p>Status updates are for demonstration only. No hospitals or donors are contacted.</p>
+                    </div>
+                </div>
+
+                <div class="admin-filters request-filters">
+                    <div class="admin-filter">
+                        <label for="request-search-filter">Search request ID or requester</label>
+                        <input id="request-search-filter" type="search" placeholder="Enter a request ID or name">
+                    </div>
+                    <div class="admin-filter">
+                        <label for="request-blood-filter">Blood group</label>
+                        <select id="request-blood-filter">
+                            <option value="">All Blood Groups</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                    </div>
+                    <div class="admin-filter">
+                        <label for="request-status-filter">Request status</label>
+                        <select id="request-status-filter">
+                            <option value="">All Statuses</option>
+                            <option value="Pending Demo Review">Pending Demo Review</option>
+                            <option value="Reviewed">Reviewed</option>
+                            <option value="Closed">Closed</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="admin-table-wrap">
+                    <table class="admin-table request-admin-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Request ID</th>
+                                <th scope="col">Requester's Name</th>
+                                <th scope="col">Required Blood Group</th>
+                                <th scope="col">City</th>
+                                <th scope="col">Locality</th>
+                                <th scope="col">Hospital / Medical Facility</th>
+                                <th scope="col">Required By</th>
+                                <th scope="col">Submission Date</th>
+                                <th scope="col">Request Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="request-table-body"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <footer class="admin-footer">
+                <a href="index.html">Return to RoktoLink</a>
+            </footer>
+        </main>
+    </div>
+    <script src="data.js" defer></script>
+    <script src="script.js" defer></script>
+</body>
+</html>
