@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#fff0f0">
+    <meta name="description" content="RoktoLink connects blood seekers with potential donors, one locality at a time.">
+    <title>RoktoLink | Blood Donor Finder</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            color-scheme: light;
+            --red: #c62828;
+            --dark-red: #8e1717;
+            --footer-red: #751515;
+            --soft-pink: #fff0f0;
+            --light-pink: #fff5f5;
+            --text: #333333;
+            --muted: #666666;
+            --content-width: 1120px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 24px;
+        }
+
+        body {
+            margin: 0;
+            background: #ffffff;
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .site-header {
+            position: relative;
+            z-index: 1;
+            background: #ffffff;
+            border-bottom: 1px solid rgba(142, 23, 23, 0.08);
+        }
+
+        .navigation {
+            width: min(var(--content-width), calc(100% - 48px));
+            min-height: 76px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .brand {
+            color: var(--dark-red);
+            font-size: 1.55rem;
+            font-weight: 800;
+            letter-spacing: -0.06em;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 34px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 180ms ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a:focus-visible {
+            color: var(--red);
+        }
+
+        .hero {
+            overflow: hidden;
+            background: linear-gradient(112deg, #fff0f0 0%, #fff8f8 58%, #fff3f3 100%);
+        }
+
+        .hero-inner {
+            position: relative;
+            width: min(var(--content-width), calc(100% - 48px));
+            min-height: 510px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            padding: 76px 0;
+        }
+
+        .hero-copy {
+            position: relative;
+            z-index: 1;
+            max-width: 650px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 0 18px;
+            color: var(--red);
+            font-size: 0.76rem;
+            font-weight: 800;
+            letter-spacing: 0.13em;
+        }
+
+        .eyebrow::before {
+            width: 25px;
+            height: 2px;
+            background: var(--red);
+            content: "";
+        }
+
+        .hero h1 {
+            max-width: 640px;
+            margin: 0;
+            color: var(--dark-red);
+            font-size: clamp(2.8rem, 5.5vw, 4.65rem);
+            letter-spacing: -0.055em;
+            line-height: 1.08;
+        }
+
+        .hero-description {
+            max-width: 535px;
+            margin: 22px 0 30px;
+            color: var(--muted);
+            font-size: 1.13rem;
+            line-height: 1.75;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 13px;
+        }
+
+        .button {
+            min-height: 50px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 23px;
+            border: 2px solid var(--red);
+            border-radius: 9px;
+            font-size: 0.96rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: transform 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+        }
+
+        .button:hover,
+        .button:focus-visible {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(142, 23, 23, 0.15);
+        }
+
+        .button-primary {
+            background: var(--red);
+            color: #ffffff;
+        }
+
+        .button-primary:hover,
+        .button-primary:focus-visible {
+            background: var(--dark-red);
+        }
+
+        .button-secondary {
+            background: #ffffff;
+            color: var(--red);
+        }
+
+        .button-secondary:hover,
+        .button-secondary:focus-visible {
+            background: #fff8f8;
+        }
+
+        .hero-art {
+            position: absolute;
+            top: 50%;
+            right: 3%;
+            width: min(34vw, 360px);
+            aspect-ratio: 1;
+            display: grid;
+            place-items: center;
+            transform: translateY(-50%);
+        }
+
+        .hero-art::before,
+        .hero-art::after {
+            position: absolute;
+            border: 1px solid rgba(198, 40, 40, 0.12);
+            border-radius: 50%;
+            content: "";
+        }
+
+        .hero-art::before {
+            inset: 5%;
+        }
+
+        .hero-art::after {
+            inset: 17%;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .drop-wrap {
+            position: relative;
+            z-index: 1;
+            width: 44%;
+            height: 56%;
+            display: grid;
+            place-items: center;
+            border-radius: 50% 50% 48% 48%;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 20px 55px rgba(142, 23, 23, 0.12);
+        }
+
+        .drop-wrap svg {
+            width: 72%;
+            height: 72%;
+        }
+
+        .section {
+            padding: 88px 24px;
+        }
+
+        .section-inner {
+            width: min(var(--content-width), 100%);
+            margin: 0 auto;
+        }
+
+        .section-heading {
+            margin: 0;
+            color: var(--dark-red);
+            font-size: clamp(2rem, 3.5vw, 2.65rem);
+            letter-spacing: -0.04em;
+            line-height: 1.2;
+            text-align: center;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 22px;
+            margin-top: 42px;
+        }
+
+        .step-card {
+            min-height: 190px;
+            padding: 28px 27px;
+            border: 1px solid rgba(142, 23, 23, 0.09);
+            border-radius: 14px;
+            background: var(--light-pink);
+            box-shadow: 0 8px 22px rgba(81, 24, 24, 0.045);
+            transition: transform 180ms ease, box-shadow 180ms ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 13px 28px rgba(81, 24, 24, 0.09);
+        }
+
+        .step-card h3 {
+            margin: 0 0 12px;
+            color: var(--red);
+            font-size: 1.28rem;
+        }
+
+        .step-card p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .safety-section {
+            padding: 72px 24px;
+            background: var(--soft-pink);
+        }
+
+        .safety-content {
+            max-width: 790px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .safety-content p {
+            margin: 19px 0 0;
+            color: #555555;
+            font-size: 1.02rem;
+            line-height: 1.85;
+        }
+
+        .site-footer {
+            padding: 29px 24px 31px;
+            background: var(--footer-red);
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .site-footer p {
+            margin: 0;
+        }
+
+        .site-footer .copyright {
+            font-weight: 700;
+        }
+
+        .site-footer .footer-tagline {
+            margin-top: 5px;
+            color: rgba(255, 255, 255, 0.82);
+            font-size: 0.93rem;
+        }
+
+        :focus-visible {
+            outline: 3px solid #e58b8b;
+            outline-offset: 3px;
+        }
+
+        @media (max-width: 760px) {
+            .navigation {
+                min-height: 70px;
+                gap: 16px;
+            }
+
+            .nav-links {
+                gap: 18px;
+            }
+
+            .hero-inner {
+                min-height: 470px;
+                padding: 68px 0;
+            }
+
+            .hero-copy {
+                max-width: 570px;
+            }
+
+            .hero-art {
+                right: -14%;
+                width: 270px;
+                opacity: 0.32;
+            }
+
+            .steps {
+                gap: 16px;
+            }
+
+            .step-card {
+                padding: 24px 21px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .navigation {
+                width: calc(100% - 36px);
+                min-height: auto;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+                padding: 14px 0 12px;
+            }
+
+            .brand {
+                font-size: 1.45rem;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: flex-start;
+                gap: clamp(17px, 6vw, 28px);
+                row-gap: 8px;
+            }
+
+            .nav-links a {
+                font-size: 0.9rem;
+            }
+
+            .hero-inner {
+                width: calc(100% - 40px);
+                min-height: 0;
+                padding: 70px 0 74px;
+            }
+
+            .hero-art {
+                top: auto;
+                right: -22%;
+                bottom: -19%;
+                width: 235px;
+                transform: none;
+                opacity: 0.23;
+            }
+
+            .hero h1 {
+                max-width: 470px;
+                font-size: clamp(2.55rem, 11vw, 3.5rem);
+            }
+
+            .hero-description {
+                margin: 18px 0 25px;
+                font-size: 1.03rem;
+            }
+
+            .hero-actions {
+                align-items: stretch;
+            }
+
+            .button {
+                min-height: 48px;
+                padding: 11px 17px;
+            }
+
+            .section {
+                padding: 66px 20px;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+                gap: 14px;
+                margin-top: 31px;
+            }
+
+            .step-card {
+                min-height: 0;
+                padding: 23px 22px;
+            }
+
+            .safety-section {
+                padding: 60px 20px;
+            }
+
+            .safety-content p {
+                font-size: 0.97rem;
+                line-height: 1.75;
+            }
+
+            .site-footer {
+                padding: 25px 18px 27px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .button {
+                width: 100%;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header class="site-header">
+        <nav class="navigation" aria-label="Main navigation">
+            <a class="brand" href="#home" aria-label="RoktoLink home">RoktoLink</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#donor-search">Find Donors</a></li>
+                <li><a href="#blood-request">Request Blood</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#safety">Safety</a></li>
+                <li><a href="#become-a-donor">Become a Donor</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section class="hero" id="home" aria-labelledby="hero-title">
+            <div class="hero-inner">
+                <div class="hero-copy">
+                    <p class="eyebrow">A COMMUNITY-DRIVEN INITIATIVE</p>
+                    <h1 id="hero-title">Every Drop Can Make a Difference.</h1>
+                    <p class="hero-description">Find potential blood donors by blood group and location through one simple platform.</p>
+                    <div class="hero-actions">
+                        <a class="button button-primary" href="#donor-search">Find a Donor</a>
+                        <a class="button button-secondary" href="#become-a-donor">Become a Donor</a>
+                    </div>
+                </div>
+                <div class="hero-art" aria-hidden="true">
+                    <div class="drop-wrap">
+                        <svg viewBox="0 0 120 150" role="presentation" focusable="false">
+                            <path d="M60 8C48 29 22 58 22 91a38 38 0 0 0 76 0C98 58 72 29 60 8Z" fill="#C62828"/>
+                            <path d="M42 91c0 12 8 21 19 24" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="7" opacity=".8"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Donor search -->
+        <section class="donor-search-section" id="donor-search" aria-labelledby="donor-search-title">
+            <div class="donor-search-inner">
+                <h2 class="section-heading" id="donor-search-title">Find a Potential Blood Donor</h2>
+                <p class="donor-search-intro">Search our sample donor directory by blood group and location.</p>
+
+                <form class="donor-search-form" id="donor-search-form">
+                    <div class="search-controls">
+                        <div class="search-field">
+                            <label for="search-blood-group">Blood Group</label>
+                            <select id="search-blood-group" name="bloodGroup">
+                                <option value="">All Blood Groups</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                        </div>
+                        <div class="search-field">
+                            <label for="search-location">Location</label>
+                            <input id="search-location" name="location" type="search" placeholder="Enter city or locality" autocomplete="off">
+                        </div>
+                        <button class="button button-primary search-button" type="submit">Search Donors</button>
+                        <button class="button button-secondary clear-search-button" id="clear-search" type="button">Clear Filters</button>
+                    </div>
+                </form>
+
+                <p class="search-disclaimer">Profiles include fictional samples and approved demo registrations. Approval is an administrative demo status only; it does not confirm medical eligibility or current availability.</p>
+                <h3 class="results-heading">Sample donor profiles</h3>
+                <p class="search-status" id="search-status" role="status" aria-live="polite">Sample directory is loading.</p>
+                <div class="donor-results" id="donor-results" aria-label="Sample donor profiles"></div>
+            </div>
+        </section>
+
+        <!-- Blood request submission -->
+        <section class="blood-request-section" id="blood-request" aria-labelledby="blood-request-title">
+            <div class="blood-request-inner">
+                <div class="blood-request-intro">
+                    <h2 class="section-heading" id="blood-request-title">Request Blood</h2>
+                    <p>Submit a sample blood request and help demonstrate how RoktoLink can connect communities.</p>
+                </div>
+
+                <form class="blood-request-form" id="blood-request-form">
+                    <div class="blood-request-fields">
+                        <div class="request-field">
+                            <label for="requester-name">Requester's Name</label>
+                            <input id="requester-name" name="requesterName" type="text" autocomplete="name" required>
+                        </div>
+
+                        <div class="request-field">
+                            <label for="request-blood-group">Required Blood Group</label>
+                            <select id="request-blood-group" name="bloodGroup" required>
+                                <option value="" selected disabled>Select blood group</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                        </div>
+
+                        <div class="request-field">
+                            <label for="request-city">City</label>
+                            <input id="request-city" name="city" type="text" autocomplete="address-level2" required>
+                        </div>
+
+                        <div class="request-field">
+                            <label for="request-locality">Locality / Area</label>
+                            <input id="request-locality" name="locality" type="text" autocomplete="address-level3" required>
+                        </div>
+
+                        <div class="request-field">
+                            <label for="facility-name">Hospital / Medical Facility Name</label>
+                            <input id="facility-name" name="facilityName" type="text" required>
+                        </div>
+
+                        <div class="request-field">
+                            <label for="required-by">Required By</label>
+                            <input id="required-by" name="requiredBy" type="date" required>
+                        </div>
+
+                        <div class="request-field request-field-wide">
+                            <label for="additional-message">Additional Message <span>(optional)</span></label>
+                            <textarea id="additional-message" name="additionalMessage" rows="4"></textarea>
+                        </div>
+                    </div>
+
+                    <button class="button button-primary blood-request-submit" type="submit">Submit Blood Request</button>
+                    <p class="blood-request-status" id="blood-request-status" role="status" aria-live="polite" tabindex="-1" hidden></p>
+                    <p class="blood-request-safety">This is a simulated demonstration workflow only; submitting will not notify hospitals or donors. For actual blood requirements, contact a hospital or licensed blood bank directly.</p>
+                </form>
+            </div>
+        </section>
+
+        <!-- How it works -->
+        <section class="section" id="how-it-works" aria-labelledby="how-title">
+            <div class="section-inner">
+                <h2 class="section-heading" id="how-title">How RoktoLink Works</h2>
+                <div class="steps">
+                    <article class="step-card">
+                        <h3>01. Search</h3>
+                        <p>Select the required blood group and your preferred location.</p>
+                    </article>
+                    <article class="step-card">
+                        <h3>02. Discover</h3>
+                        <p>Explore matching potential donor profiles from the sample directory.</p>
+                    </article>
+                    <article class="step-card">
+                        <h3>03. Request</h3>
+                        <p>Submit a sample blood request through the platform.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Donor registration -->
+        <section class="registration-section" id="become-a-donor" aria-labelledby="registration-title">
+            <div class="registration-inner">
+                <div class="registration-intro">
+                    <h2 class="section-heading" id="registration-title">Become a Potential Donor</h2>
+                    <p>Join our community and express your willingness to help people in need.</p>
+                    <p class="registration-disclaimer">Prototype only: use fictional test information. Registrations are saved in this browser; if approved in the demo dashboard, the display name and general area appear in public search. Approval does not confirm medical eligibility or current availability.</p>
+                </div>
+
+                <form class="registration-form" id="donor-registration-form">
+                    <div class="registration-fields">
+                        <div class="form-field">
+                            <label for="display-name">Display Name</label>
+                            <input id="display-name" name="displayName" type="text" autocomplete="nickname" required>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="blood-group">Blood Group</label>
+                            <select id="blood-group" name="bloodGroup" required>
+                                <option value="" selected disabled>Select blood group</option>
+                                <option value="A+">A+</option>
+                                <option value="A−">A−</option>
+                                <option value="B+">B+</option>
+                                <option value="B−">B−</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB−">AB−</option>
+                                <option value="O+">O+</option>
+                                <option value="O−">O−</option>
+                            </select>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="city">City</label>
+                            <input id="city" name="city" type="text" autocomplete="address-level2" required>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="locality">Locality / Area</label>
+                            <input id="locality" name="locality" type="text" autocomplete="address-level3" required>
+                        </div>
+
+                        <div class="form-field form-field-wide">
+                            <label for="availability">Availability Preference</label>
+                            <select id="availability" name="availabilityPreference" required>
+                                <option value="" selected disabled>Select your preference</option>
+                                <option value="Willing to be contacted">Willing to be contacted</option>
+                                <option value="Available occasionally">Available occasionally</option>
+                                <option value="Currently not accepting requests">Currently not accepting requests</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="button button-primary registration-submit" type="submit">Register as a Donor</button>
+                    <p class="registration-status" id="registration-status" role="status" aria-live="polite" tabindex="-1" hidden></p>
+                </form>
+            </div>
+        </section>
+
+        <!-- Safety information -->
+        <section class="safety-section" id="safety" aria-labelledby="safety-title">
+            <div class="safety-content">
+                <h2 class="section-heading" id="safety-title">Important Safety Information</h2>
+                <p>RoktoLink is a demonstration prototype using fictional sample donor information. Donor registrations saved in this browser are unverified and do not confirm medical eligibility or current availability. Always contact a hospital or licensed blood bank for actual arrangements and verification.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <p class="copyright">© 2026 RoktoLink | A Hackathon Prototype</p>
+        <p class="footer-tagline">Connecting communities through awareness and support.</p>
+    </footer>
+    <script src="data.js" defer></script>
+    <script src="script.js" defer></script>
+</body>
+</html>
